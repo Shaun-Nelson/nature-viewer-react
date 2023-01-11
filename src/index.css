@@ -1,0 +1,100 @@
+body {
+  background-size:cover;
+  height: auto;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
+/* CONTAINERS */
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 3em;
+}
+
+.flex-column-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* BUTTONS */
+
+.btn-menu{
+  position:absolute;
+  color:black;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding-top: 2em;
+  text-align: center;
+  top: 90%;
+  border: 1px solid black;
+}
+
+.btn-menu:active {
+  border:blue
+}
+
+.btn-menu:hover {
+  border: blue;
+}
+
+.btn-left, .btn-right {
+  color: black;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px;
+    padding: 1em;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.btn-left{
+  margin-right: 1em;
+}
+
+.btn-right {
+  margin-left: 1em;
+}
+
+.photographer-name {
+  margin-top: 9em;
+  color: white;
+  text-shadow: 2px 2px black;
+}
+
+.desc{
+  color: white;
+  text-shadow: 2px 2px black;
+}
+
+.photo {
+  box-shadow: 5px 5px 5px rgba(255, 255, 255, 0.2);
+}
+
+.photo-left{
+  opacity:0.4;
+}
+
+.photo-right{
+  opacity: 0.4;
+}
+
+@media screen and (max-width:768px) {
+  /* .photo {
+    width: 100;
+    height: auto;
+  } */
+  
+  .photographer-name, .desc{
+    font-size: 12px;
+  }
+
+  .btn-left, .btn-right {
+    font-size: 8px;
+    margin:0;
+  }
+
+}
