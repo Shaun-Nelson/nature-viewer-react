@@ -59,6 +59,8 @@ body {
   margin-left: 1em;
 }
 
+/* TEXT */
+
 .photographer-name {
   margin-top: 9em;
   color: white;
@@ -68,6 +70,12 @@ body {
 .desc{
   color: white;
   text-shadow: 2px 2px black;
+}
+
+.error-message {
+  text-shadow: 2px 2px black;
+  text-align: center;
+  font-size: 24px;
 }
 
 .photo {
@@ -87,14 +95,22 @@ body {
     width: 100;
     height: auto;
   } */
+
   
   .photographer-name, .desc{
     font-size: 12px;
+    margin-top: 4em;
+  }
+
+  .btn-menu{
+    top: 80vh;
   }
 
   .btn-left, .btn-right {
+    margin-top: 3em;
+    margin-left: 0;
+    margin-right: 0;
     padding: 0.5em;
-    margin:0;
   }
 
 }

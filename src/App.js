@@ -4,7 +4,7 @@ import MenuButton from "./components/MenuButton";
 
 const API_KEY = "563492ad6f91700001000001e2f01e5688a94b13b884103cacf2626b";
 const endpoint =
-  "https://api.pexels.com/v1/search/?page=1&per_page=40&query=Nature";
+  "https://api.pexels.com/v1/search/?page=1&per_page=80&query=Nature";
 
 const App = () => {
   const [altText, setAltText] = useState("");
@@ -13,10 +13,10 @@ const App = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [photoLeft, setPhotoLeft] = useState("");
   const [photoRight, setPhotoRight] = useState("");
+  const [photos, setPhotos] = useState([]);
   const [isUpdated, setIsUpdated] = useState(false);
   const [showSlider, setShowSlider] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
-  const [photos, setPhotos] = useState([]);
   const [isEndOfSliderRight, setIsEndOfSliderRight] = useState(false);
   const [isEndOfSliderLeft, setIsEndOfSliderLeft] = useState(false);
 
@@ -27,7 +27,7 @@ const App = () => {
       },
     })
       .then(
-        (res) => res.json(),
+        (res) => console.log(res.json()),
         (rej) => console.log(rej)
       )
       .then((data) => {
@@ -136,12 +136,18 @@ const App = () => {
             photographer={photographer}
             src={photoURL}
             id={id}
-            height={window.innerWidth >= 1000 ? 200 : 50}
-            width={window.innerWidth >= 1000 ? 300 : 100}
+            height={
+              window.screen.orientation.type.startsWith("landscape") ? 200 : 100
+            }
+            width={
+              window.screen.orientation.type.startsWith("landscape") ? 300 : 100
+            }
             photoLeft={photoLeft}
             photoRight={photoRight}
             isEndOfSliderRight={isEndOfSliderRight}
             isEndOfSliderLeft={isEndOfSliderLeft}
+            onRightPhotoClick={() => moveSliderRight(currentIndex + 1)}
+            onLeftPhotoClick={() => moveSliderLeft(currentIndex - 1)}
           />
 
           <button
@@ -157,7 +163,7 @@ const App = () => {
           <div className='flex-column-container'>
             <h2 className='photographer-name'>{`Photographer: ${photographer}`}</h2>
             <h3 className='desc'>
-              {window.innerWidth >= 768
+              {window.screen.orientation.type.startsWith("landscape")
                 ? altText
                 : "Use Landscape orientation."}
             </h3>

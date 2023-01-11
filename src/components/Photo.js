@@ -10,6 +10,7 @@ const Photo = (props) => {
       photographer={props.photographer}
       src={props.src}
       id={props.id}
+      onClick={props.onClick}
     />
   );
 };

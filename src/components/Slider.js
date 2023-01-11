@@ -11,6 +11,7 @@ const Slider = (props) => {
             width={props.width}
             height={props.height}
             src={props.photoLeft}
+            onClick={props.onLeftPhotoClick}
           />
         )}
         <Photo
@@ -28,6 +29,7 @@ const Slider = (props) => {
             width={props.width}
             height={props.height}
             src={props.photoRight}
+            onClick={props.onRightPhotoClick}
           />
         )}
       </div>
