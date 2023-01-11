@@ -27,29 +27,33 @@ const App = () => {
       },
     })
       .then(
-        (res) => console.log(res.json()),
+        (res) => res.json(),
         (rej) => console.log(rej)
       )
       .then((data) => {
+        setPhotos(data.photos);
         if (!isUpdated) {
           setIsUpdated(true);
-          handler(data);
+          displayRandomPhoto();
         }
+        if (data.next_page && photos.length < 1000) {
+          getPhotos(data.next_page, console.log);
+        }
+        console.log(photos);
       });
   };
 
-  const displayRandomPhoto = (data) => {
-    let index = Math.floor(Math.random() * data.photos.length);
-    setPhotos(data.photos);
+  const displayRandomPhoto = () => {
+    let index = Math.floor(Math.random() * photos.length);
 
     if (index === 0) index += 1;
-    if (index === data.photos.length - 1) index -= 1;
+    if (index === photos.length - 1) index -= 1;
 
     setCurrentIndex(index);
-    let photoMid = data.photos[index];
+    let photoMid = photos[index];
 
-    setPhotoLeft(data.photos[index - 1].src.tiny);
-    setPhotoRight(data.photos[index + 1].src.tiny);
+    setPhotoLeft(photos[index - 1].src.tiny);
+    setPhotoRight(photos[index + 1].src.tiny);
     setAltText(photoMid.alt);
     setPhotographer(photoMid.photographer);
     setPhotoURL(photoMid.src.tiny);
@@ -58,7 +62,7 @@ const App = () => {
   };
 
   const displayBackgroundImage = (photo) => {
-    window.innerWidth >= 800
+    window.screen.orientation.type.startsWith("landscape")
       ? (document.body.style.backgroundImage = `url('${photo.src.landscape}')`)
       : (document.body.style.backgroundImage = `url('${photo.src.portrait}')`);
   };
@@ -118,7 +122,7 @@ const App = () => {
     displayBackgroundImage(photoMid);
   };
 
-  getPhotos(endpoint, displayRandomPhoto);
+  if (!isUpdated) getPhotos(endpoint, displayRandomPhoto);
 
   return (
     <>
