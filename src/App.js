@@ -141,10 +141,16 @@ const App = () => {
             src={photoURL}
             id={id}
             height={
-              window.screen.orientation.type.startsWith("landscape") ? 200 : 100
+              window.screen.orientation.type.startsWith("landscape") &&
+              window.innerWidth >= 1000
+                ? 200
+                : 100
             }
             width={
-              window.screen.orientation.type.startsWith("landscape") ? 300 : 100
+              window.screen.orientation.type.startsWith("landscape") &&
+              window.innerWidth >= 1000
+                ? 300
+                : 100
             }
             photoLeft={photoLeft}
             photoRight={photoRight}
