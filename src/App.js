@@ -136,8 +136,8 @@ const App = () => {
             photographer={photographer}
             src={photoURL}
             id={id}
-            height={window.innerWidth >= 768 ? 200 : 50}
-            width={window.innerWidth >= 768 ? 300 : 100}
+            height={window.innerWidth >= 1000 ? 200 : 50}
+            width={window.innerWidth >= 1000 ? 300 : 100}
             photoLeft={photoLeft}
             photoRight={photoRight}
             isEndOfSliderRight={isEndOfSliderRight}
