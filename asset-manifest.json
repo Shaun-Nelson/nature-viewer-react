@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/nature-viewer-react/static/css/main.abd4da0c.css",
-    "main.js": "/nature-viewer-react/static/js/main.5a5f67ab.js",
+    "main.js": "/nature-viewer-react/static/js/main.32dcea27.js",
     "index.html": "/nature-viewer-react/index.html",
     "main.abd4da0c.css.map": "/nature-viewer-react/static/css/main.abd4da0c.css.map",
-    "main.5a5f67ab.js.map": "/nature-viewer-react/static/js/main.5a5f67ab.js.map"
+    "main.32dcea27.js.map": "/nature-viewer-react/static/js/main.32dcea27.js.map"
   },
   "entrypoints": [
     "static/css/main.abd4da0c.css",
-    "static/js/main.5a5f67ab.js"
+    "static/js/main.32dcea27.js"
   ]
 }
