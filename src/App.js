@@ -20,7 +20,7 @@ const App = () => {
   const [isEndOfSliderRight, setIsEndOfSliderRight] = useState(false);
   const [isEndOfSliderLeft, setIsEndOfSliderLeft] = useState(false);
 
-  const getPhotos = async (search, handler) => {
+  const getPhotos = async (search) => {
     await fetch(search, {
       headers: {
         Authorization: API_KEY,
@@ -28,22 +28,25 @@ const App = () => {
     })
       .then(
         (res) => res.json(),
-        (rej) => console.log(rej)
+        (rej) => {
+          console.log(rej);
+        }
       )
       .then((data) => {
         setPhotos(data.photos);
         if (!isUpdated) {
           setIsUpdated(true);
-          displayRandomPhoto();
+          displayRandomPhoto(data.photos);
         }
-        if (data.next_page && photos.length < 1000) {
-          getPhotos(data.next_page, console.log);
-        }
-        console.log(photos);
-      });
+        // if (data.next_page && photos.length < 1000) {
+        //   getPhotos(data.next_page, console.log);
+        // }
+        // console.log(photos);
+      })
+      .catch(console.log("error caught while fetching", photos));
   };
 
-  const displayRandomPhoto = () => {
+  const displayRandomPhoto = (photos) => {
     let index = Math.floor(Math.random() * photos.length);
 
     if (index === 0) index += 1;
@@ -141,16 +144,10 @@ const App = () => {
             src={photoURL}
             id={id}
             height={
-              window.screen.orientation.type.startsWith("landscape") &&
-              window.innerWidth >= 1000
-                ? 200
-                : 100
+              window.screen.orientation.type.startsWith("landscape") ? 200 : 100
             }
             width={
-              window.screen.orientation.type.startsWith("landscape") &&
-              window.innerWidth >= 1000
-                ? 300
-                : 100
+              window.screen.orientation.type.startsWith("landscape") ? 300 : 100
             }
             photoLeft={photoLeft}
             photoRight={photoRight}
