@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "./components/Slider";
 import MenuButton from "./components/MenuButton";
+import SearchButton from "./components/SearchButton";
 
 const API_KEY = "563492ad6f91700001000001e2f01e5688a94b13b884103cacf2626b";
-const endpoint =
-  "https://api.pexels.com/v1/search/?page=1&per_page=80&query=Nature";
 
 const App = () => {
   const [altText, setAltText] = useState("");
@@ -19,13 +18,17 @@ const App = () => {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [isEndOfSliderRight, setIsEndOfSliderRight] = useState(false);
   const [isEndOfSliderLeft, setIsEndOfSliderLeft] = useState(false);
+  const [showSearchButtons, setShowSearchButtons] = useState(false);
 
-  const getPhotos = async (search) => {
-    await fetch(search, {
-      headers: {
-        Authorization: API_KEY,
-      },
-    })
+  const getPhotos = async (query) => {
+    await fetch(
+      `https://api.pexels.com/v1/search/?page=1&per_page=80&query=${query}`,
+      {
+        headers: {
+          Authorization: API_KEY,
+        },
+      }
+    )
       .then(
         (res) => res.json(),
         (rej) => {
@@ -33,17 +36,10 @@ const App = () => {
         }
       )
       .then((data) => {
-        setPhotos(data.photos);
-        if (!isUpdated) {
-          setIsUpdated(true);
-          displayRandomPhoto(data.photos);
-        }
-        // if (data.next_page && photos.length < 1000) {
-        //   getPhotos(data.next_page, console.log);
-        // }
-        // console.log(photos);
+        setPhotos([...data.photos]);
+        displayRandomPhoto(data.photos);
       })
-      .catch(console.log("error caught while fetching", photos));
+      .catch(console.log("[ERROR FETCHING DATA] "));
   };
 
   const displayRandomPhoto = (photos) => {
@@ -125,7 +121,10 @@ const App = () => {
     displayBackgroundImage(photoMid);
   };
 
-  if (!isUpdated) getPhotos(endpoint, displayRandomPhoto);
+  useEffect(() => {
+    if (!isUpdated) getPhotos("Nature");
+    setIsUpdated(true);
+  }, []);
 
   return (
     <>
@@ -181,6 +180,34 @@ const App = () => {
           menuButtonText={showSlider ? "v Gallery" : "^ Gallery"}
         ></MenuButton>
       </div>
+      {!showSearchButtons && (
+        <button
+          className='show-search'
+          onClick={() => setShowSearchButtons(true)}
+        >
+          &#10095;
+        </button>
+      )}
+      {showSearchButtons && (
+        <div className='flex-container-btns'>
+          <SearchButton name='Nature' onClick={() => getPhotos("Nature")} />
+          <SearchButton name='Space' onClick={() => getPhotos("Space")} />
+          <SearchButton
+            name='Architecture'
+            onClick={() => getPhotos("Architecture")}
+          />
+          <SearchButton
+            name='Landscapes'
+            onClick={() => getPhotos("Landscapes")}
+          />
+          <button
+            className='hide-search'
+            onClick={() => setShowSearchButtons(false)}
+          >
+            &#10094;
+          </button>
+        </div>
+      )}
     </>
   );
 };
